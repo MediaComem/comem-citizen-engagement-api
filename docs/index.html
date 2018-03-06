@@ -1,0 +1,815 @@
+<!DOCTYPE HTML><html><head><title>Citizen Engagement API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 7.0.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+      .items {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 9.5px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+      }
+      .examples {
+        margin-left: 0.5em;
+      }
+      .resource-modal li > ul {
+        margin-bottom: 1em;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Citizen Engagement API documentation</h1><p>https://comem-citizen-engagement.herokuapp.com/api</p><h3 id="usage"><a href="#usage">Usage</a></h3><p>Welcome to Citizen Engagement API.</p><h3 id="data_types"><a href="#data_types">Data Types</a></h3><p>The following tables describe the JSON representations of the resources accessible in this API.</p><p>Properties marked as <strong>read-only</strong> are sent by the server in JSON responses but always ignored in requests. Properties marked as <strong>write-only</strong> can be sent in JSON requests but are never sent back by the server in responses (e.g. password).</p><h4 id="issue">Issue</h4><table class="table"><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Constraints</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><code>assigneeHref</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the staff user assigned to the issue (null for newly created issues)</td></tr><tr><td style="text-align:left"><code>createdAt</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">The date at which the issue was created</td></tr><tr><td style="text-align:left"><code>creatorHref</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the user who reported the issue</td></tr><tr><td style="text-align:left"><code>description</code></td><td style="text-align:left">1000 chars max</td><td style="text-align:left">An optional description of the issue</td></tr><tr><td style="text-align:left"><code>href</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the issue</td></tr><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A globally unique identifier of the issue</td></tr><tr><td style="text-align:left"><code>imageUrl</code></td><td style="text-align:left">500 chars max, protocol must be <code>http://</code> or <code>https://</code>, extension must be <code>.gif</code>, <code>.jpg</code> or <code>.png</code></td><td style="text-align:left">An optional URL to a picture of the issue</td></tr><tr><td style="text-align:left"><code>additionalImageUrls</code></td><td style="text-align:left">each url: 500 chars max, protocol must be <code>http://</code> or <code>https://</code>, extension must be <code>.gif</code>, <code>.jpg</code> or <code>.png</code></td><td style="text-align:left">An optional array of additional picture URLs</td></tr><tr><td style="text-align:left"><code>issueTypeHref</code></td><td style="text-align:left"><strong>required</strong></td><td style="text-align:left">A hyperlink reference to an issue type (the ID alone is also a valid reference)</td></tr><tr><td style="text-align:left"><code>location</code></td><td style="text-align:left"><strong>required</strong>, type must be <code>Point</code></td><td style="text-align:left">A <a href="http://geojson.org">GeoJSON</a> point indicating the geographical coordinates of the issue</td></tr><tr><td style="text-align:left"><code>state</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">The current state of the issue (<code>new</code>, <code>inProgress</code>, <code>rejected</code> or <code>resolved</code>)</td></tr><tr><td style="text-align:left"><code>tags</code></td><td style="text-align:left">each tag: 1-20 chars</td><td style="text-align:left">An optional array of tag strings describing the issue</td></tr><tr><td style="text-align:left"><code>updatedAt</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">The date at which the issue was last updated (equal to <code>createdAt</code> for newly created issues)</td></tr></tbody></table><h4 id="issue-action">Issue action</h4><table class="table"><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Constraints</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><code>createdAt</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">The date at which the action was performed</td></tr><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A globally unique identifier of the action</td></tr><tr><td style="text-align:left"><code>href</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the action</td></tr><tr><td style="text-align:left"><code>issueHref</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the issue on which the action was performed</td></tr><tr><td style="text-align:left"><code>reason</code></td><td style="text-align:left">1000 chars max</td><td style="text-align:left">An optional reason describing the action</td></tr><tr><td style="text-align:left"><code>type</code></td><td style="text-align:left"><strong>required</strong>, one of <code>start</code>, <code>reject</code> or <code>resolve</code></td><td style="text-align:left">The type of action to perform on the issue</td></tr><tr><td style="text-align:left"><code>userHref</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the staff user who performed the action</td></tr></tbody></table><h4 id="issue-comment">Issue comment</h4><table class="table"><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Constraints</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><code>authorHref</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the user who posted the comment</td></tr><tr><td style="text-align:left"><code>createdAt</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">The date at which the comment was posted</td></tr><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A globally unique identifier of the comment</td></tr><tr><td style="text-align:left"><code>text</code></td><td style="text-align:left"><strong>required</strong>, 1000 chars max</td><td style="text-align:left">The comment&#39;s text</td></tr></tbody></table><h4 id="issue-type">Issue type</h4><table class="table"><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Constraints</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A globally unique identifier of the issue type</td></tr><tr><td style="text-align:left"><code>href</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the issue type</td></tr><tr><td style="text-align:left"><code>name</code></td><td style="text-align:left"><strong>required</strong>, <strong>unique</strong>, 25 chars max, must contain only hyphen-separated alphanumeric chars, e.g. <code>foo-bar-42</code></td><td style="text-align:left">The globally unique name or the issue type</td></tr><tr><td style="text-align:left"><code>description</code></td><td style="text-align:left">1000 chars max</td><td style="text-align:left">A detailed description of this type of issue</td></tr><tr><td style="text-align:left"><code>imageUrl</code></td><td style="text-align:left">500 chars max, protocol must be <code>http://</code> or <code>https://</code>, extension must be <code>.gif</code>, <code>.jpg</code> or <code>.png</code></td><td style="text-align:left">An optional URL to an image or icon for the issue type</td></tr></tbody></table><h4 id="user">User</h4><table class="table"><thead><tr><th style="text-align:left">Property</th><th style="text-align:left">Constraints</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A globally unique identifier of the user</td></tr><tr><td style="text-align:left"><code>href</code></td><td style="text-align:left"><em>read-only</em></td><td style="text-align:left">A hyperlink reference to the user</td></tr><tr><td style="text-align:left"><code>name</code></td><td style="text-align:left"><strong>required</strong>, <strong>unique (case-insensitive)</strong>, 25 chars max, must contain only alphanumeric chars</td><td style="text-align:left">The globally unique username or the user</td></tr><tr><td style="text-align:left"><code>password</code></td><td style="text-align:left"><strong>required</strong>, <em>write-only</em>, 4 chars min</td><td style="text-align:left">The user&#39;s password</td></tr><tr><td style="text-align:left"><code>firstname</code></td><td style="text-align:left"><strong>required</strong>, 2-25 chars</td><td style="text-align:left">The user&#39;s first name</td></tr><tr><td style="text-align:left"><code>lastname</code></td><td style="text-align:left"><strong>required</strong>, 2-25 chars</td><td style="text-align:left">The user&#39;s last name</td></tr><tr><td style="text-align:left"><code>phone</code></td><td style="text-align:left">20 chars max</td><td style="text-align:left">An optional phone number for the user</td></tr><tr><td style="text-align:left"><code>roles</code></td><td style="text-align:left"><strong>required</strong>, can contain <code>citizen</code> and/or <code>staff</code>, must contain at least one element</td><td style="text-align:left">An array of the user&#39;s roles (this defines what API operations the user will be authorized to perform)</td></tr></tbody></table></div><div class="panel panel-default"><div class="panel-heading"><h3 id="users" class="panel-title">/users</h3></div><div class="panel-body"><div class="top-resource-description"><p>User management resources</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users"><span class="parent"></span>/users</a> <span class="methods"><a href="#users_get"><span class="badge badge_get">get</span></a> <a href="#users_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_users" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of users.</p><p>The list is sorted by name in alphabetical order by default.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#users_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Register a new user.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/users</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of users.</p><p>The list is sorted by name in alphabetical order by default.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_get_request" data-toggle="tab">Request</a></li><li><a href="#users_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>name, firstname, lastname, phone</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=lastname&amp;sort=firstname
+</code></pre></div></li></ul></div><div class="tab-pane" id="users_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "href": "/api/users/54d8ae163fd30364605c81a4",
+    "id": "54d8ae163fd30364605c81a4",
+    "name": "jdoe",
+    "firstname": "John",
+    "lastname": "Doe",
+    "phone": "(460) 614-2120",
+    "roles": [
+      "citizen"
+    ]
+  },
+  {
+    "href": "/api/users/54d8ae163fd30364605c81a9",
+    "id": "54d8ae163fd30364605c81a9",
+    "name": "jsmith"
+    "firstname": "Jane",
+    "lastname": "Smith",
+    "phone": "(460) 614-2121",
+    "roles": [
+      "citizen",
+      "staff"
+    ]
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/users</h4></div><div class="modal-body"><div class="alert alert-info"><p>Register a new user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_post_request" data-toggle="tab">Request</a></li><li><a href="#users_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": "jdoe",
+  "password": "changeme",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2120",
+  "roles": [
+    "citizen"
+  ]
+}
+</code></pre></div></div><div class="tab-pane" id="users_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The user has been created.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>Indicates the location of the newly created resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Location: http://example.com/api/users/54d8ae163fd30364605c81a4
+</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/users/54d8ae163fd30364605c81a4",
+  "id": "54d8ae163fd30364605c81a4",
+  "name": "jdoe",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2120",
+  "roles": [
+    "citizen"
+  ]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "firstname": {
+    "kind": "minlength",
+    "message": "Path `firstname` (`1`) is shorter than the minimum allowed length (2).",
+    "name": "ValidatorError",
+    "path": "firstname",
+    "value": "1"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users__id_"><span class="parent">/users</span>/{id}</a> <span class="methods"><a href="#users__id__get"><span class="badge badge_get">get</span></a> <a href="#users__id__patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_users__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve the details of a user.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#users__id__patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update the details of a user.</p><p>Only the properties present in the request body will be updated.</p><p>A user with the <code>citizen</code> role but not the <code>staff</code> role can only update the details of their own user.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve the details of a user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users__id__get_request" data-toggle="tab">Request</a></li><li><a href="#users__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the user.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul></div><div class="tab-pane" id="users__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/users/54d8ae163fd30364605c81a4",
+  "id": "54d8ae163fd30364605c81a4",
+  "name": "jdoe",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2120",
+  "roles": [
+    "citizen"
+  ]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users__id__patch"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/users</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update the details of a user.</p><p>Only the properties present in the request body will be updated.</p><p>A user with the <code>citizen</code> role but not the <code>staff</code> role can only update the details of their own user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users__id__patch_request" data-toggle="tab">Request</a></li><li><a href="#users__id__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users__id__patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the user.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": "jdoe",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2123",
+  "roles": [
+    "citizen",
+    "staff"
+  ]
+}
+</code></pre></div></div><div class="tab-pane" id="users__id__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>The update was successful.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/users/54d8ae163fd30364605c81a4",
+  "id": "54d8ae163fd30364605c81a4",
+  "name": "jdoe",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2123",
+  "roles": [
+    "citizen",
+    "staff"
+  ]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occurred.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "firstname": {
+    "kind": "minlength",
+    "message": "Path `firstname` (`1`) is shorter than the minimum allowed length (2).",
+    "name": "ValidatorError",
+    "path": "firstname",
+    "value": "1"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="auth" class="panel-title">/auth</h3></div><div class="panel-body"><div class="top-resource-description"><p>Authentication resource</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_auth"><span class="parent"></span>/auth</a> <span class="methods"><a href="#auth_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_auth" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#auth_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Authenticate with a user&#39;s credentials and obtain a bearer token that can be used to authenticate to other API operations.</p><p>The generated token will be valid for 15 days. The response will also contain a <code>user</code> property with a representation of the authenticated user.</p><p>To authenticate to other resources, send the token in the <code>Authorization</code> header with this format: <code>Authorization: Bearer TOKEN</code>.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="auth_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/auth</h4></div><div class="modal-body"><div class="alert alert-info"><p>Authenticate with a user&#39;s credentials and obtain a bearer token that can be used to authenticate to other API operations.</p><p>The generated token will be valid for 15 days. The response will also contain a <code>user</code> property with a representation of the authenticated user.</p><p>To authenticate to other resources, send the token in the <code>Authorization</code> header with this format: <code>Authorization: Bearer TOKEN</code>.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#auth_post_request" data-toggle="tab">Request</a></li><li><a href="#auth_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="auth_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": "jdoe",
+  "password": "letmein"
+}
+</code></pre></div></div><div class="tab-pane" id="auth_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "token": "eyJhbGciOiJIU.eyJpc3MiOiI1OGM1YjUwZTA0Nm.gik21xyT4_NzsduWMLVp8",
+  "user": {
+    "firstname": "John",
+    "id": "58c5b50e046ea004e4af9d32",
+    "lastname": "Doe",
+    "name": "staff",
+    "roles": [
+      "citizen",
+      "staff"
+    ]
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="me" class="panel-title">/me</h3></div><div class="panel-body"><div class="top-resource-description"><p>Resources linked to the authenticated user</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_me"><span class="parent"></span>/me</a> <span class="methods"><a href="#me_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#me_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve the details of the authenticated user.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="me_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve the details of the authenticated user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#me_get_request" data-toggle="tab">Request</a></li><li><a href="#me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="me_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul></div><div class="tab-pane" id="me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/users/54d8ae163fd30364605c81a4",
+  "id": "54d8ae163fd30364605c81a4",
+  "name": "jdoe",
+  "firstname": "John",
+  "lastname": "Doe",
+  "phone": "(460) 614-2120",
+  "roles": [
+    "citizen"
+  ]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_me_issues"><span class="parent">/me</span>/issues</a> <span class="methods"><a href="#me_issues_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_me_issues" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#me_issues_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of the issues created by the authenticated user.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="me_issues_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/me</span>/issues</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of the issues created by the authenticated user.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#me_issues_get_request" data-toggle="tab">Request</a></li><li><a href="#me_issues_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="me_issues_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>image</strong>: <em>required (string)</em><p>Select only issues with (true) or without (false) images.</p><p>By default, all issues are returned whether they have an image or not.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>image=true</code></pre></div></li><li><strong>search</strong>: <em>required (string)</em><p>Select only issues matching the specified text.</p><p>The search is case-insensitive and includes the issue&#39;s description and tags.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>search=foo</code></pre></div></li><li><strong>state</strong>: <em>required (string)</em><p>Select only issues in that state.</p><p>Can be used multiple times to find all issues in any of the specified states.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>state=new&amp;state=inProgress</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>createdAt, updatedAt, state</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=state&amp;sort=-updatedAt
+</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>actions, assignee, creator, issueType</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=creator&amp;include=issueType</code></pre></div></li></ul></div><div class="tab-pane" id="me_issues_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "assigneeHref": null,
+    "createdAt": "2016-09-09T15:36:41.947Z",
+    "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+    "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+    "id": "58c55a0bf2dc592bf95e6749",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6398,
+        46.7678
+      ],
+      "type": "Point"
+    },
+    "state": "new",
+    "tags": [
+      "rom",
+      "re"
+    ],
+    "updatedAt": "2017-03-12T14:24:11.738Z"
+  },
+  {
+    "assigneeHref": "/api/users/58c55a0af2dc592bf95e5d80",
+    "createdAt": "2016-09-07T13:35:13.027Z",
+    "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+    "description": "Ozac nospusi ge oj def gufeh afepevih onoir kulsih umrer kovfi juwe fu.",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6712",
+    "id": "58c55a0bf2dc592bf95e6712",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6243,
+        46.7737
+      ],
+      "type": "Point"
+    },
+    "state": "inProgress",
+    "tags": [
+      "ibural",
+      "disnejwuw"
+    ],
+    "updatedAt": "2017-03-12T14:24:12.556Z"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="issuetypes" class="panel-title">/issueTypes</h3></div><div class="panel-body"><div class="top-resource-description"><p>Issue type management resources</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issuetypes"><span class="parent"></span>/issueTypes</a> <span class="methods"><a href="#issuetypes_get"><span class="badge badge_get">get</span></a> <a href="#issuetypes_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_issuetypes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issuetypes_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of issue types.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issuetypes_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Create a new issue type.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issuetypes_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/issueTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of issue types.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issuetypes_get_request" data-toggle="tab">Request</a></li><li><a href="#issuetypes_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issuetypes_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li></ul></div><div class="tab-pane" id="issuetypes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "href": "/api/issueTypes/54d8ae183fd30364605c81b1",
+    "id": "54d8ae183fd30364605c81b1",
+    "name": "broken-streetlight",
+    "description": "Area is poorly lit",
+  },
+  {
+    "href": "/api/issueTypes/54d8ae183fd30364605c81b2",
+    "id": "54d8ae183fd30364605c81b2",
+    "name": "dangerous-crossroad",
+    "description": "Visiblity is poor"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issuetypes_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/issueTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new issue type.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issuetypes_post_request" data-toggle="tab">Request</a></li><li><a href="#issuetypes_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issuetypes_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": "broken-streetlight",
+  "description": "Area is poorly lit"
+}
+</code></pre></div></div><div class="tab-pane" id="issuetypes_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The issue type has been created.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>Indicates the location of the newly created resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Location: http://example.com/api/issueTypes/54d8ae163fd30364605c81a4
+</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/issueTypes/54d8ae183fd30364605c81b1",
+  "id": "54d8ae183fd30364605c81b1",
+  "name": "broken-streetlight",
+  "description": "Area is poorly lit"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": {
+    "kind": "regexp",
+    "message": "Path `name` is invalid (---).",
+    "name": "ValidatorError",
+    "path": "name",
+    "properties": {
+      "message": "Path `{PATH}` is invalid ({VALUE}).",
+      "path": "name",
+      "regexp": {},
+      "type": "regexp",
+      "value": "---"
+    },
+    "value": "---"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issuetypes__id_"><span class="parent">/issueTypes</span>/{id}</a> <span class="methods"><a href="#issuetypes__id__get"><span class="badge badge_get">get</span></a> <a href="#issuetypes__id__patch"><span class="badge badge_patch">patch</span></a> <a href="#issuetypes__id__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_issuetypes__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issuetypes__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve the details of an issue type.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issuetypes__id__patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update the details of an issue type.</p><p>Only the properties present in the request body will be updated.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issuetypes__id__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Delete an issue type.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issuetypes__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/issueTypes</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve the details of an issue type.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issuetypes__id__get_request" data-toggle="tab">Request</a></li><li><a href="#issuetypes__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issuetypes__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue type.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul></div><div class="tab-pane" id="issuetypes__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/issueTypes/54d8ae183fd30364605c81b1",
+  "id": "54d8ae183fd30364605c81b1",
+  "name": "broken-streetlight",
+  "description": "Area is poorly lit"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issuetypes__id__patch"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/issueTypes</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update the details of an issue type.</p><p>Only the properties present in the request body will be updated.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issuetypes__id__patch_request" data-toggle="tab">Request</a></li><li><a href="#issuetypes__id__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issuetypes__id__patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue type.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": "broken-streetlight",
+  "description": "Can&#39;t see",
+}
+</code></pre></div></div><div class="tab-pane" id="issuetypes__id__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "href": "/api/issueTypes/54d8ae183fd30364605c81b1",
+  "id": "54d8ae183fd30364605c81b1",
+  "name": "broken-streetlight",
+  "description": "Can&#39;t see"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "name": {
+    "kind": "regexp",
+    "message": "Path `name` is invalid (---).",
+    "name": "ValidatorError",
+    "path": "name",
+    "properties": {
+      "message": "Path `{PATH}` is invalid ({VALUE}).",
+      "path": "name",
+      "regexp": {},
+      "type": "regexp",
+      "value": "---"
+    },
+    "value": "---"
+  }
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issuetypes__id__delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent">/issueTypes</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete an issue type.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issuetypes__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#issuetypes__id__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issuetypes__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue type.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul></div><div class="tab-pane" id="issuetypes__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The issue type has been deleted.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>The issue type could not be deleted because issues are linked to it.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="issues" class="panel-title">/issues</h3></div><div class="panel-body"><div class="top-resource-description"><p>Issue management resource</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issues"><span class="parent"></span>/issues</a> <span class="methods"><a href="#issues_get"><span class="badge badge_get">get</span></a> <a href="#issues_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_issues" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issues_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of issues.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issues_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Create a new issue.</p><p>The authenticated user will be linked to the issue as its creator.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/issues</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of issues.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues_get_request" data-toggle="tab">Request</a></li><li><a href="#issues_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>image</strong>: <em>required (string)</em><p>Select only issues with (true) or without (false) images.</p><p>By default, all issues are returned whether they have an image or not.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>image=true</code></pre></div></li><li><strong>search</strong>: <em>required (string)</em><p>Select only issues matching the specified text.</p><p>The search is case-insensitive and includes the issue&#39;s description and tags.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>search=foo</code></pre></div></li><li><strong>state</strong>: <em>required (string)</em><p>Select only issues in that state.</p><p>Can be used multiple times to find all issues in any of the specified states.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>state=new&amp;state=inProgress</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>createdAt, updatedAt, state</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=state&amp;sort=-updatedAt
+</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>actions, assignee, creator, issueType</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=creator&amp;include=issueType</code></pre></div></li></ul></div><div class="tab-pane" id="issues_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "assigneeHref": null,
+    "createdAt": "2016-09-09T15:36:41.947Z",
+    "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+    "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+    "id": "58c55a0bf2dc592bf95e6749",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6398,
+        46.7678
+      ],
+      "type": "Point"
+    },
+    "state": "new",
+    "tags": [
+      "rom",
+      "re"
+    ],
+    "updatedAt": "2017-03-12T14:24:11.738Z"
+  },
+  {
+    "assigneeHref": "/api/users/58c55a0af2dc592bf95e5d80",
+    "createdAt": "2016-09-07T13:35:13.027Z",
+    "creatorHref": "/api/users/58c55a09f2dc592bf95e5d77",
+    "description": "Ozac nospusi ge oj def gufeh afepevih onoir kulsih umrer kovfi juwe fu.",
+    "id": "58c55a0bf2dc592bf95e6712",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6712",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6243,
+        46.7737
+      ],
+      "type": "Point"
+    },
+    "state": "inProgress",
+    "tags": [
+      "ibural",
+      "disnejwuw"
+    ],
+    "updatedAt": "2017-03-12T14:24:12.556Z"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/issues</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new issue.</p><p>The authenticated user will be linked to the issue as its creator.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues_post_request" data-toggle="tab">Request</a></li><li><a href="#issues_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "createdAt": "2016-09-09T15:36:41.947Z",
+  "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+  "imageUrl": "http://example.com/image.png",
+  "additionalImageUrls": [
+    "http://example.com/image-2.png"
+  ],
+  "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+  "location": {
+    "coordinates": [
+      6.6398,
+      46.7678
+    ],
+    "type": "Point"
+  },
+  "tags": [
+    "rom",
+    "re"
+  ]
+}
+</code></pre></div></div><div class="tab-pane" id="issues_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The issue has been created.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>Indicates the location of the newly created resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Location: http://example.com/api/issues/54d8ae163fd30364605c81a4
+</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "assigneeHref": null,
+  "createdAt": "2016-09-09T15:36:41.947Z",
+  "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+  "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+  "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+  "id": "58c55a0bf2dc592bf95e6749",
+  "additionalImageUrls": [
+    "http://example.com/image-2.png"
+  ],
+  "imageUrl": "http://example.com/image.png",
+  "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+  "location": {
+    "coordinates": [
+      6.6398,
+      46.7678
+    ],
+    "type": "Point"
+  },
+  "state": "new",
+  "tags": [
+    "rom",
+    "re"
+  ],
+  "updatedAt": "2017-03-12T14:24:11.738Z"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "issueTypeHref": {
+    "kind": "resourceNotFound",
+    "message": "Path `issueTypeHref` is not a valid IssueType reference",
+    "name": "ValidatorError",
+    "path": "issueTypeHref",
+    "properties": {
+      "message": "Path `issueTypeHref` is not a valid IssueType reference",
+      "path": "issueTypeHref",
+      "type": "resourceNotFound",
+      "value": "foo"
+    },
+    "value": "foo"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issues_searches"><span class="parent">/issues</span>/searches</a> <span class="methods"><a href="#issues_searches_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_issues_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issues_searches_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Perform a free search and retrieve a paginated list of matching issues.</p><p>The request body can be a MongoDB query object using any MongoDB <a href="https://docs.mongodb.com/manual/reference/operator/query/">query operator</a>.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues_searches_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/issues</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Perform a free search and retrieve a paginated list of matching issues.</p><p>The request body can be a MongoDB query object using any MongoDB <a href="https://docs.mongodb.com/manual/reference/operator/query/">query operator</a>.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#issues_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues_searches_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>createdAt, updatedAt, state</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=state&amp;sort=-updatedAt
+</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>actions, assignee, creator, issueType</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=creator&amp;include=issueType</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>// By issue types
+{
+  "state": {
+    "$in": [ "new", "inProgress" ]
+  }
+}
+
+// By location
+{
+  "location": {
+    "$geoWithin": {
+      "$centerSphere" : [
+        [ 6.622009 , 46.766129 ],
+        0.1
+      ]
+    }
+  }
+}
+</code></pre></div></div><div class="tab-pane" id="issues_searches_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "assigneeHref": null,
+    "createdAt": "2016-09-09T15:36:41.947Z",
+    "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+    "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+    "id": "58c55a0bf2dc592bf95e6749",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6398,
+        46.7678
+      ],
+      "type": "Point"
+    },
+    "state": "new",
+    "tags": [
+      "rom",
+      "re"
+    ],
+    "updatedAt": "2017-03-12T14:24:11.738Z"
+  },
+  {
+    "assigneeHref": "/api/users/58c55a0af2dc592bf95e5d80",
+    "createdAt": "2016-09-07T13:35:13.027Z",
+    "creatorHref": "/api/users/58c55a09f2dc592bf95e5d77",
+    "description": "Ozac nospusi ge oj def gufeh afepevih onoir kulsih umrer kovfi juwe fu.",
+    "href": "/api/issues/58c55a0bf2dc592bf95e6712",
+    "id": "58c55a0bf2dc592bf95e6712",
+    "imageUrl": "http://example.com/image.png",
+    "additionalImageUrls": [],
+    "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+    "location": {
+      "coordinates": [
+        6.6243,
+        46.7737
+      ],
+      "type": "Point"
+    },
+    "state": "inProgress",
+    "tags": [
+      "ibural",
+      "disnejwuw"
+    ],
+    "updatedAt": "2017-03-12T14:24:12.556Z"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issues__id_"><span class="parent">/issues</span>/{id}</a> <span class="methods"><a href="#issues__id__get"><span class="badge badge_get">get</span></a> <a href="#issues__id__patch"><span class="badge badge_patch">patch</span></a> <a href="#issues__id__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_issues__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issues__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve the details of an issue.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issues__id__patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update the details of an issue.</p><p>Only the properties in the request body will be updated.</p><p>Staff users can update any issue. Citizens can only update the issues they have created.</p><p>The state cannot be updated with this operation. Use the <code>/issues/{id}/actions</code> resource.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issues__id__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Delete an issue.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/issues</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve the details of an issue.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__get_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>actions, assignee, creator, issueType</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=creator&amp;include=issueType</code></pre></div></li></ul></div><div class="tab-pane" id="issues__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "assigneeHref": null,
+  "createdAt": "2016-09-09T15:36:41.947Z",
+  "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+  "description": "Dondoen aw rol koseko zez nimjolor ra wimupa kiolono uwi ostiibe irce ve.",
+  "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+  "id": "58c55a0bf2dc592bf95e6749",
+  "imageUrl": "http://example.com/image.png",
+  "additionalImageUrls": [],
+  "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d86",
+  "location": {
+    "coordinates": [
+      6.6398,
+      46.7678
+    ],
+    "type": "Point"
+  },
+  "state": "new",
+  "tags": [
+    "rom",
+    "re"
+  ],
+  "updatedAt": "2017-03-12T14:24:11.738Z"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__patch"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/issues</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update the details of an issue.</p><p>Only the properties in the request body will be updated.</p><p>Staff users can update any issue. Citizens can only update the issues they have created.</p><p>The state cannot be updated with this operation. Use the <code>/issues/{id}/actions</code> resource.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__patch_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "description": "Fubar",
+  "imageUrl": "http://example.com/awesome.png",
+  "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d85",
+  "location": {
+    "coordinates": [
+      10.6398,
+      30.7678
+    ],
+    "type": "Point"
+  },
+  "tags": [
+    "re",
+    "foo"
+  ]
+}
+</code></pre></div></div><div class="tab-pane" id="issues__id__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "assigneeHref": null,
+  "createdAt": "2016-09-09T15:36:41.947Z",
+  "creatorHref": "/api/users/58c55a0af2dc592bf95e5d85",
+  "description": "Fubar",
+  "href": "/api/issues/58c55a0bf2dc592bf95e6749",
+  "id": "58c55a0bf2dc592bf95e6749",
+  "imageUrl": "http://example.com/awesome.png",
+  "additionalImageUrls": [],
+  "issueTypeHref": "/api/issueTypes/58c55a0af2dc592bf95e5d85",
+  "location": {
+    "coordinates": [
+      10.6398,
+      30.7678
+    ],
+    "type": "Point"
+  },
+  "state": "new",
+  "tags": [
+    "re",
+    "foo"
+  ],
+  "updatedAt": "2017-03-12T14:24:11.738Z"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "issueTypeHref": {
+    "kind": "resourceNotFound",
+    "message": "Path `issueTypeHref` is not a valid IssueType reference",
+    "name": "ValidatorError",
+    "path": "issueTypeHref",
+    "properties": {
+      "message": "Path `issueTypeHref` is not a valid IssueType reference",
+      "path": "issueTypeHref",
+      "type": "resourceNotFound",
+      "value": "foo"
+    },
+    "value": "foo"
+  }
+}
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent">/issues</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete an issue.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__delete_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__delete_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul></div><div class="tab-pane" id="issues__id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The issue has been deleted.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issues__id__actions"><span class="parent">/issues/{id}</span>/actions</a> <span class="methods"><a href="#issues__id__actions_get"><span class="badge badge_get">get</span></a> <a href="#issues__id__actions_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_issues__id__actions" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issues__id__actions_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of the actions that have been performed on an issue.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p><p>The list is always empty for a newly created issue.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issues__id__actions_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Perform an action on an issue.</p><p>Actions are how an issue changes state between <code>new</code>, <code>inProgress</code>, <code>rejected</code> and <code>resolved</code>. When an action is created, the linked issue&#39;s state automatically changes. The action type determines the state transition:</p><ul><li>An action of type <code>start</code> changes an issue&#39;s state from <code>new</code> to <code>inProgress</code> (the authenticated user is automatically linked to the issue as its assignee)</li><li>An action of type <code>reject</code> changes an issue&#39;s state from <code>new</code> or <code>inProgress</code> to <code>rejected</code></li><li>An action of type <code>resolve</code> changes an issue&#39;s state from <code>inProgress</code> to <code>resolved</code></li></ul><p>Actions are automatically linked to the issue identified by the ID in the URL, and to the authenticated user.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__actions_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/issues/{id}</span>/actions</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of the actions that have been performed on an issue.</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p><p>The list is always empty for a newly created issue.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__actions_get_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__actions_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__actions_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>createdAt, type</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=type
+</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>issue, user</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=issue&amp;include=user</code></pre></div></li></ul></div><div class="tab-pane" id="issues__id__actions_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "createdAt": "2017-03-10T13:42:30.583Z",
+    "href": "/api/actions/58c55a0cf2dc592bf95e67b3",
+    "id": "58c55a0cf2dc592bf95e67b3",
+    "issueHref": "/api/issues/58c55a0bf2dc592bf95e674e",
+    "reason": null,
+    "type": "start",
+    "userHref": "/api/users/58c55a0af2dc592bf95e5d7f"
+  },
+  {
+    "createdAt": "2017-03-10T13:42:30.583Z",
+    "href": "/api/actions/58c55a0cf2dc592bf95e67b4",
+    "id": "58c55a0cf2dc592bf95e67b4",
+    "issueHref": "/api/issues/58c55a0bf2dc592bf95e674e",
+    "reason": "All good",
+    "type": "resolve",
+    "userHref": "/api/users/58c55a0af2dc592bf95e5d84"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__actions_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/issues/{id}</span>/actions</h4></div><div class="modal-body"><div class="alert alert-info"><p>Perform an action on an issue.</p><p>Actions are how an issue changes state between <code>new</code>, <code>inProgress</code>, <code>rejected</code> and <code>resolved</code>. When an action is created, the linked issue&#39;s state automatically changes. The action type determines the state transition:</p><ul><li>An action of type <code>start</code> changes an issue&#39;s state from <code>new</code> to <code>inProgress</code> (the authenticated user is automatically linked to the issue as its assignee)</li><li>An action of type <code>reject</code> changes an issue&#39;s state from <code>new</code> or <code>inProgress</code> to <code>rejected</code></li><li>An action of type <code>resolve</code> changes an issue&#39;s state from <code>inProgress</code> to <code>resolved</code></li></ul><p>Actions are automatically linked to the issue identified by the ID in the URL, and to the authenticated user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__actions_post_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__actions_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__actions_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "reason": "All good",
+  "type": "resolve"
+}
+</code></pre></div></div><div class="tab-pane" id="issues__id__actions_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The action has been performed and the issue&#39;s state has been updated.</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>Indicates the location of the newly created resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Location: http://example.com/api/actions/54d8ae163fd30364605c81a4
+</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "createdAt": "2017-03-12T15:22:13.304Z",
+  "href": "/api/actions/58c567a57c0c2d30025eb0fd",
+  "id": "58c567a57c0c2d30025eb0fd",
+  "issueHref": "/api/issues/58c565f77c0c2d30025eb03c",
+  "reason": "All good",
+  "type": "resolve",
+  "userHref": "/api/users/58c565fa7c0c2d30025eb0fb"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "state": {
+    "kind": "invalidStateTransition",
+    "message": "Action \"start\" is not a valid state transition for an issue in state \"rejected\"",
+    "name": "ValidatorError",
+    "path": "state",
+    "properties": {
+      "message": "Action \"start\" is not a valid state transition for an issue in state \"rejected\"",
+      "path": "state",
+      "type": "invalidStateTransition",
+      "value": "start"
+    },
+    "value": "start"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_issues__id__comments"><span class="parent">/issues/{id}</span>/comments</a> <span class="methods"><a href="#issues__id__comments_get"><span class="badge badge_get">get</span></a> <a href="#issues__id__comments_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_issues__id__comments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#issues__id__comments_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of the comments that have been posted about an issue.</p><p>The list is always sorted by creation date (from oldest to newest).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#issues__id__comments_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Post a comment on an issue.</p><p>The authenticated user is automatically linked to the comment as its author.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__comments_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/issues/{id}</span>/comments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of the comments that have been posted about an issue.</p><p>The list is always sorted by creation date (from oldest to newest).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__comments_get_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__comments_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__comments_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>author</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=author</code></pre></div></li></ul></div><div class="tab-pane" id="issues__id__comments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "authorHref": "/api/users/58c565f67c0c2d30025ea6ed",
+    "createdAt": "2016-07-19T08:35:43.283Z",
+    "id": "58c565f77c0c2d30025ea760",
+    "text": "We opdiv bur uci fidadwi buc te rowlu liren do kuvusav herco irioni ja dotdihhon moike bag."
+  },
+  {
+    "authorHref": "/api/users/58c565f67c0c2d30025ea6eb",
+    "createdAt": "2016-07-23T03:58:50.384Z",
+    "id": "58c565f77c0c2d30025ea77e",
+    "text": "Run afucmup raizi ulalu vubvodi ceco vajfatjeb vik daroheb ubmup omaja foj kiwma."
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="issues__id__comments_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/issues/{id}</span>/comments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Post a comment on an issue.</p><p>The authenticated user is automatically linked to the comment as its author.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#issues__id__comments_post_request" data-toggle="tab">Request</a></li><li><a href="#issues__id__comments_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="issues__id__comments_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the issue.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "text": "Looks bad"
+}
+</code></pre></div></div><div class="tab-pane" id="issues__id__comments_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The comment has been created.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "authorHref": "/api/users/58c565f67c0c2d30025ea6eb",
+  "createdAt": "2016-07-23T03:58:50.384Z",
+  "id": "58c565f77c0c2d30025ea77e",
+  "text": "Looks bad"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The request body is invalid JSON or is not a JSON object.</p><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p><h2>HTTP status code <a href="http://httpstatus.es/415" target="_blank">415</a></h2><p>The request is not JSON data or is missing the <code>Content-Type: application/json</code> header.</p><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>A validation error has occured.</p><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "comments.0.text": {
+    "kind": "required",
+    "message": "Path `text` is required.",
+    "name": "ValidatorError",
+    "path": "text",
+    "properties": {
+      "message": "Path `{PATH}` is required.",
+      "path": "text",
+      "type": "required",
+      "value": ""
+    },
+    "value": ""
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="actions" class="panel-title">/actions</h3></div><div class="panel-body"><div class="top-resource-description"><p>Issue actions management resources</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions"><span class="parent"></span>/actions</a> <span class="methods"><a href="#actions_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_actions" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve a paginated list of all actions (on all issues).</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/actions</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve a paginated list of all actions (on all issues).</p><p>The list is sorted by descending creation date (from most recent to oldest) by default.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>staff</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>page</strong>: <em>required (integer - default: 1 - minimum: 1)</em><p>The page you want to retrieve.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2</code></pre></div></li><li><strong>pageSize</strong>: <em>required (integer - default: 20 - minimum: 1 - maximum: 50)</em><p>The number of items you want to retrieve per page.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>15</code></pre></div></li><li><strong>sort</strong>: <em>required (string)</em><p>Sorting criteria for the collection.</p><p>Use a criterion as is for ascending order, e.g. <code>name</code>, or with a minus character for descending order, e.g. <code>-name</code>.</p><p>The following criteria are available for this resource: <code>createdAt, type</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>sort=type
+</code></pre></div></li><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>issue, user</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=issue&amp;include=user</code></pre></div></li></ul></div><div class="tab-pane" id="actions_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>Link</strong>: <em>required (string)</em><p>Links to other pages in the collection (if any), formatted as per <a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Link: &lt;http://example.com/api/collection?page=2&amp;pageSize=50&gt;; rel="next last"
+</code></pre></div></li><li><strong>Pagination-Total</strong>: <em>required (number)</em><p>The total number of elements available in the collection (if any filters are applied, this is the total number of elements that match the filters).</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>76</code></pre></div></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "createdAt": "2017-03-10T13:42:30.583Z",
+    "href": "/api/actions/58c55a0cf2dc592bf95e67b3",
+    "id": "58c55a0cf2dc592bf95e67b3",
+    "issueHref": "/api/issues/58c55a0bf2dc592bf95e674e",
+    "reason": null,
+    "type": "start",
+    "userHref": "/api/users/58c55a0af2dc592bf95e5d7f"
+  },
+  {
+    "createdAt": "2017-03-10T13:42:30.583Z",
+    "href": "/api/actions/58c55a0cf2dc592bf95e67b4",
+    "id": "58c55a0cf2dc592bf95e67b4",
+    "issueHref": "/api/issues/58c55a0bf2dc592bf95e674e",
+    "reason": "All good",
+    "type": "resolve",
+    "userHref": "/api/users/58c55a0af2dc592bf95e5d84"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions__id_"><span class="parent">/actions</span>/{id}</a> <span class="methods"><a href="#actions__id__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_actions__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve the details of an action on an issue.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions__id__get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/actions</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve the details of an action on an issue.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions__id__get_request" data-toggle="tab">Request</a></li><li><a href="#actions__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em><p>The ID of the action.</p></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string - pattern: ^Bearer .+$)</em><p>Use this header to authenticate with a bearer token.</p><p><strong>Roles required:</strong> <code>any</code></p><p>You can obtain an authentication token with the <code>/auth</code> resource.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Bearer 09ajewax</code></pre></div></li></ul><h3>Query Parameters</h3><ul><li><strong>include</strong>: <em>required (string)</em><p>Provide this query parameter one or multiple times to fetch and include linked resources in the response.</p><p>(By default, only hyperlink references are provided in the response, e.g. <code>userHref</code>. Use this parameter to also fetch the corresponding resource in the same API call.)</p><p>The following linked resources can be included with this resource: <code>issue, user</code></p><p><strong>Example</strong>:</p><div class="examples"><pre><code>include=issue&amp;include=user</code></pre></div></li></ul></div><div class="tab-pane" id="actions__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "createdAt": "2017-03-10T13:42:30.583Z",
+  "href": "/api/actions/58c55a0cf2dc592bf95e67b3",
+  "id": "58c55a0cf2dc592bf95e67b4",
+  "issueHref": "/api/issues/58c55a0bf2dc592bf95e674e",
+  "reason": "All good",
+  "type": "resolve",
+  "userHref": "/api/users/58c55a0af2dc592bf95e5d84"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>This resource requires authentication and you have not sent a bearer token in the Authorization header (or your token is invalid or has expired).</p><p>The header must be send in this format: <code>Authorization: Bearer 09ajewax</code></p><p>Use the <code>/auth</code> resource to obtain a token.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>You have been authenticated but you do not have sufficient access rights to perform this operation.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="data" class="panel-title">/data</h3></div><div class="panel-body"><div class="top-resource-description"><p>Sample data management resource</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_data"><span class="parent"></span>/data</a> <span class="methods"><a href="#data_post"><span class="badge badge_post">post</span></a> <a href="#data_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_data" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#data_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Wipes the database and populates it with random sample data.</p><p>The generated data will contain:</p><ul><li>15 users (mix of citizens and staff) with random names and the password <code>test</code></li><li>An additional citizen user with the name <code>jdoe</code> and the password <code>test</code></li><li>An additional staff user with the name <code>admin</code> and the password <code>test</code></li><li>3 issue types</li><li>100 issues in the Yverdon area with:<ul><li>A random creation date between 3 years ago and now</li><li>A random citizen as the creator</li><li>A random description</li><li>A random issue type</li><li>A random image URL (with 75% probability, otherwise it will be null)</li><li>0-10 random tags (with 75% probability that there will be at least 1 tag)</li><li>0-2 random actions by staff users (with ~90% probability that there will be at least 1 action)</li><li>0-100 comments (with 75% probability that there will be at least 1 comment)</li></ul></li></ul></div><div class="clearfix"></div></div><div onclick="window.location.href = '#data_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Wipes the database.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="data_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/data</h4></div><div class="modal-body"><div class="alert alert-info"><p>Wipes the database and populates it with random sample data.</p><p>The generated data will contain:</p><ul><li>15 users (mix of citizens and staff) with random names and the password <code>test</code></li><li>An additional citizen user with the name <code>jdoe</code> and the password <code>test</code></li><li>An additional staff user with the name <code>admin</code> and the password <code>test</code></li><li>3 issue types</li><li>100 issues in the Yverdon area with:<ul><li>A random creation date between 3 years ago and now</li><li>A random citizen as the creator</li><li>A random description</li><li>A random issue type</li><li>A random image URL (with 75% probability, otherwise it will be null)</li><li>0-10 random tags (with 75% probability that there will be at least 1 tag)</li><li>0-2 random actions by staff users (with ~90% probability that there will be at least 1 action)</li><li>0-100 comments (with 75% probability that there will be at least 1 comment)</li></ul></li></ul></div><ul class="nav nav-tabs"><li class="active"><a href="#data_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="data_post_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>Sample data was successfully generated.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="data_delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/data</h4></div><div class="modal-body"><div class="alert alert-info"><p>Wipes the database.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#data_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="data_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>All data was successfully deleted.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">/</h3></div><div class="panel-body"><div class="top-resource-description"><p>API information</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_"><span class="parent"></span>/</a> <span class="methods"><a href="#_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieve general statistics and the version of the API</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieve general statistics and the version of the API</p></div><ul class="nav nav-tabs"><li class="active"><a href="#_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "actions": 125,
+  "issueTypes": 3,
+  "issues": 100,
+  "url": "https://comem-citizen-engagement.herokuapp.com/api",
+  "users": 18,
+  "version": "1.0.1"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#users">/users</a></li><li><a href="#auth">/auth</a></li><li><a href="#me">/me</a></li><li><a href="#issuetypes">/issueTypes</a></li><li><a href="#issues">/issues</a></li><li><a href="#actions">/actions</a></li><li><a href="#data">/data</a></li><li><a href="#">/</a></li></ul></div></div></div></div></body></html>
